@@ -16,5 +16,15 @@
     <string name="dish_name_placeholder">Enter a dish name</string>
     <string name="dish_description_placeholder">Enter a description</string>
     <string name="dish_advice">Please enter the required dish information.</string>
+    <string name="delete_instructions">Please choose the dish that you want to delete</string>
+    <string name="dish_search">Search a dish...</string>
+    <string name="delete_dish_advice">Please click the \"Search a dish\" button to look for the dish to be deleted</string>
+    <string name="dish_delete">Delete dishes</string>
+    <string name="title_activity_dish_list">DishListActivity</string>
+    <string name="Monday">Monday</string>
+    <string name="Tuesday">Tuesday</string>
+    <string name="Wednesday">Wednesday</string>
+    <string name="Thursday">Thursday</string>
+    <string name="Friday">Friday</string>
 
 </resources>

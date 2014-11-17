@@ -9,22 +9,27 @@ import android.widget.TextView;
 
 import com.example.usuario.catering.R;
 
+import java.util.ArrayList;
+
 public class AdminDrawerAdapter extends BaseAdapter {
-    public static final String[] menu = {"View week orders", "Dishes", "Users"};
+    public ArrayList<String> menu = new ArrayList<String>();
     private LayoutInflater inflater;
 
     public AdminDrawerAdapter(Context context) {
         inflater = LayoutInflater.from(context);
+        menu.add("View week orders");
+        menu.add("Dishes");
+        menu.add("Users");
     }
 
     @Override
     public int getCount() {
-        return menu.length;
+        return menu.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return menu[position];
+        return menu.get(position);
     }
 
     @Override

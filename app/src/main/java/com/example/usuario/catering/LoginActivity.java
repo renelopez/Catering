@@ -12,7 +12,7 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.usuario.catering.models.LoginModel;
-import com.example.usuario.catering.net.LoginServices;
+import com.example.usuario.catering.net.NetServices;
 import com.example.usuario.catering.net.OnBackgroundTaskCallback;
 import com.example.usuario.catering.net.VisibleAnimation;
 import com.google.gson.Gson;
@@ -61,7 +61,7 @@ public class LoginActivity extends Activity {
         List<NameValuePair> listBody = new ArrayList<NameValuePair>(2);
         listBody.add(new BasicNameValuePair("username", userNameTxt.getText().toString()));
         listBody.add(new BasicNameValuePair("password", passwordTxt.getText().toString()));
-        new LoginServices(new OnBackgroundTaskCallback() {
+        new NetServices(new OnBackgroundTaskCallback() {
             @Override
             public void onTaskCompleted(String response) {
                 parseJSON(response);
@@ -72,7 +72,7 @@ public class LoginActivity extends Activity {
             public void onTaskError(String error) {
 
             }
-        }, new VisibleAnimation(findViewById(R.id.login_progress_bar)), listBody).execute(LoginServices.WS_CALL_POST);
+        }, new VisibleAnimation(findViewById(R.id.login_progress_bar)), listBody, "/api/login").execute(NetServices.WS_CALL_POST);
     }
 
     private void performAction() {

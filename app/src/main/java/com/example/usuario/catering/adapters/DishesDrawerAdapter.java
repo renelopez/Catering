@@ -10,7 +10,7 @@ import android.widget.TextView;
 import com.example.usuario.catering.R;
 
 public class DishesDrawerAdapter extends BaseAdapter {
-    public static final String[] menu = {"View current dishes", "Add new dish", "Delete a dish"};
+    public static final String[] menu = {"View current dishes", "Add new dish", "Delete a dish", "Create Week Menu"};
     private LayoutInflater inflater;
 
     public DishesDrawerAdapter(Context context) {

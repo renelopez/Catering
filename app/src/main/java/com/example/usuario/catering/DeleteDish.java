@@ -7,28 +7,34 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
+import android.widget.ListView;
 
 import com.example.usuario.catering.interfaces.OnFragmentInteractionListener;
 
 
-public class CreateDish extends Fragment {
+/**
+ * A simple {@link Fragment} subclass.
+ * Activities that contain this fragment must implement the
+ * {@link DeleteDish.OnFragmentInteractionListener} interface
+ * to handle interaction events.
+ * Use the {@link DeleteDish#newInstance} factory method to
+ * create an instance of this fragment.
+ */
+public class DeleteDish extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    EditText dishNameTxt, dishDescriptionTxt;
-    Button createDishBtn;
-
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
 
+    private ListView dishesList;
+
     private OnFragmentInteractionListener mListener;
 
-    public CreateDish() {
+    public DeleteDish() {
         // Required empty public constructor
     }
 
@@ -38,11 +44,11 @@ public class CreateDish extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment CreateDish.
+     * @return A new instance of fragment DeleteDish.
      */
     // TODO: Rename and change types and number of parameters
-    public static CreateDish newInstance(String param1, String param2) {
-        CreateDish fragment = new CreateDish();
+    public static DeleteDish newInstance(String param1, String param2) {
+        DeleteDish fragment = new DeleteDish();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -59,14 +65,21 @@ public class CreateDish extends Fragment {
         }
     }
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View rootView = inflater.inflate(R.layout.fragment_create_dish, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_delete_dish, container, false);
+        getActivity().setTitle(getResources().getString(R.string.delete_instructions));
         initUI(rootView);
         return rootView;
+    }
+
+    private void initUI(View rootView) {
+
+        //dishesList= (ListView) rootView.findViewById(R.id.dishes_list);
+        //dishesList.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
+        //dishesList.setAdapter(new ArrayAdapter<String>(getActivity(),R.layout.simple_list_item_1,month));
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -74,12 +87,6 @@ public class CreateDish extends Fragment {
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);
         }
-    }
-
-    private void initUI(View rootView) {
-        dishNameTxt = (EditText) rootView.findViewById(R.id.dish_name);
-        dishDescriptionTxt = (EditText) rootView.findViewById(R.id.dish_description);
-        createDishBtn = (Button) rootView.findViewById(R.id.createDish);
     }
 
     @Override

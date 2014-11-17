@@ -2,18 +2,22 @@ package com.example.usuario.catering;
 
 import android.app.Activity;
 import android.app.Fragment;
+import android.app.FragmentManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.widget.DrawerLayout;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.example.usuario.catering.adapters.DishesDrawerAdapter;
+import com.example.usuario.catering.interfaces.OnFragmentInteractionListener;
 
 
-public class DishesActivity extends Activity {
+public class DishesActivity extends Activity implements OnFragmentInteractionListener {
 
     private ListView list;
     private Fragment activeFragment;
@@ -28,8 +32,21 @@ public class DishesActivity extends Activity {
 
         initUI();
         setAdapter();
-        //setClicks();
+        setClicks();
         setToggle();
+        //FragmentManager manager=getFragmentManager();
+        //manager.beginTransaction().replace(R.id.dishes_content_frame,DeleteDish.newInstance("","")).commit();
+    }
+
+    private void setClicks() {
+        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                drawer.closeDrawers();
+                FragmentManager manager = getFragmentManager();
+                manager.beginTransaction().replace(R.id.dishes_content_frame, CreateDishMenu.newInstance("", "")).commit();
+            }
+        });
     }
 
     @Override
@@ -83,5 +100,10 @@ public class DishesActivity extends Activity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+
     }
 }

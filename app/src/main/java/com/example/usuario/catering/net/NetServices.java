@@ -26,28 +26,37 @@ import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.util.List;
 
-public class LoginServices extends AsyncTask<Integer, Void, String> {
+public class NetServices extends AsyncTask<Integer, Void, String> {
     public static final int WS_CALL_GET = 0;
     public static final int WS_CALL_POST = 1;
-    private final String URL_WS_GET = "http://192.168.56.1:53837/api/login";
-    private final String URL_WS_POST = "http://192.168.56.1:53837/api/login";
     //private final String APP_ID = "j2aLnaENSizTFXE725Lww3MTtqiMfEQhVO5HTmSD";
-    //private final String REST_API_KEY = "jmKBd9wASHKDiBFLaQvExQY1xPh50OPONajo1VZN";
+    //private final String REST_API_KEY = "jmKBd9wASHKDiBFLaQvExQ1xPh50OPONajo1VZN";
     private final int STATUS_OK = 200;
     private final int STATUS_CREATED = 201;
     private final int STATUS_ERROR = 400;
     private final int STATUS_NOT_FOUND = 404;
     private final int STATUS_UNKNOWN = 300;
     private final String ERROR = "error";
-    private final List<NameValuePair> messageList;
+    public String ROOT_URL = "http://192.168.56.1:53837/api";
+    private List<NameValuePair> messageList;
     private OnBackgroundTaskCallback callbacks;
     private OnBackgroundTaskAnimation animation;
     private int status;
 
-    public LoginServices(OnBackgroundTaskCallback callbacks, OnBackgroundTaskAnimation animation, List<NameValuePair> messageList) {
+    public NetServices(OnBackgroundTaskCallback callbacks,
+                       OnBackgroundTaskAnimation animation,
+                       List<NameValuePair> messageList, String apiResource) {
         this.callbacks = callbacks;
         this.animation = animation;
         this.messageList = messageList;
+        this.ROOT_URL = this.ROOT_URL + apiResource;
+    }
+
+    public NetServices(OnBackgroundTaskCallback callbacks,
+                       OnBackgroundTaskAnimation animation, String apiResource) {
+        this.callbacks = callbacks;
+        this.animation = animation;
+        this.ROOT_URL = this.ROOT_URL + apiResource;
     }
 
     @Override
@@ -78,7 +87,7 @@ public class LoginServices extends AsyncTask<Integer, Void, String> {
     }
 
     private String connectionGET() {
-        HttpGet httpGet = new HttpGet(URL_WS_GET);
+        HttpGet httpGet = new HttpGet(ROOT_URL);
 
         httpGet.setHeader("Accept", "application/json");
         httpGet.setHeader("Content-type", "application/json");
@@ -117,7 +126,7 @@ public class LoginServices extends AsyncTask<Integer, Void, String> {
     }
 
     private String connectionPOST() {
-        HttpPost httpPost = new HttpPost(URL_WS_POST);
+        HttpPost httpPost = new HttpPost(ROOT_URL);
 
         //httpPost.setHeader("X-Parse-Application-Id", APP_ID);
         //httpPost.setHeader("X-Parse-REST-API-Key", REST_API_KEY);
