@@ -11,6 +11,15 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.example.usuario.catering.interfaces.OnFragmentInteractionListener;
+import com.example.usuario.catering.net.NetServices;
+import com.example.usuario.catering.net.OnBackgroundTaskCallback;
+import com.example.usuario.catering.net.VisibleAnimation;
+
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class CreateDish extends Fragment {
@@ -66,7 +75,42 @@ public class CreateDish extends Fragment {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_create_dish, container, false);
         initUI(rootView);
+        setClicks();
         return rootView;
+    }
+
+    private void setClicks() {
+        createDishBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                createDish();
+            }
+        });
+    }
+
+    private void createDish() {
+        List<NameValuePair> listBody = new ArrayList<NameValuePair>(2);
+        listBody.add(new BasicNameValuePair("name", dishNameTxt.getText().toString()));
+        listBody.add(new BasicNameValuePair("description", dishDescriptionTxt.getText().toString()));
+        new NetServices(new OnBackgroundTaskCallback() {
+            @Override
+            public void onTaskCompleted(String response) {
+                parseJSON(response);
+                performAction();
+            }
+
+            @Override
+            public void onTaskError(String error) {
+
+            }
+        }, new VisibleAnimation(getActivity().findViewById(R.id.login_progress_bar)), listBody, "/api/dish").execute(NetServices.WS_CALL_POST);
+    }
+
+    private void performAction() {
+    }
+
+    private void parseJSON(String response) {
+
     }
 
     // TODO: Rename method, update argument and hook method into UI event
