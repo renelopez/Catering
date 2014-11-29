@@ -34,19 +34,44 @@ public class DishesActivity extends Activity implements OnFragmentInteractionLis
         setAdapter();
         setClicks();
         setToggle();
-        //FragmentManager manager=getFragmentManager();
+        // FragmentManager manager=getFragmentManager();
         //manager.beginTransaction().replace(R.id.dishes_content_frame,DeleteDish.newInstance("","")).commit();
     }
 
     private void setClicks() {
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
                 drawer.closeDrawers();
-                FragmentManager manager = getFragmentManager();
-                manager.beginTransaction().replace(R.id.dishes_content_frame, CreateDishMenu.newInstance("", "")).commit();
+                openFragment(position);
             }
         });
+    }
+
+    private void openFragment(int position) {
+        FragmentManager manager = getFragmentManager();
+        switch (position) {
+            case 0:
+                manager.beginTransaction().replace(R.id.dishes_content_frame, DishList.newInstance("", "")).commit();
+                // activeFragment = Fragments.LIST_FRAGMENT;
+                break;
+            case 1:
+                manager.beginTransaction().replace(R.id.dishes_content_frame, CreateDish.newInstance("", "")).commit();
+                //activeFragment = Fragments.GRID_FRAGMENT;
+                break;
+            case 2:
+                manager.beginTransaction().replace(R.id.dishes_content_frame, DeleteDish.newInstance("", "")).commit();
+                //activeFragment = Fragments.GRID_FRAGMENT;
+                break;
+            case 3:
+                manager.beginTransaction().replace(R.id.dishes_content_frame, CreateDishMenu.newInstance("", "")).commit();
+                //activeFragment = Fragments.BOTH_FRAGMENT;
+                break;
+            case 4:
+                //manager.beginTransaction().replace(R.id.dishes_content_frame, ListMenu.newInstance("", ""), "CreateDishMenu").commit();
+                //activeFragment = Fragments.BOTH_FRAGMENT;
+                break;
+        }
     }
 
     @Override

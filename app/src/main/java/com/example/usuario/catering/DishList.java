@@ -7,41 +7,41 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.Toast;
+import android.widget.GridView;
 
+import com.example.usuario.catering.adapters.DishListAdapter;
 import com.example.usuario.catering.interfaces.OnFragmentInteractionListener;
-import com.example.usuario.catering.models.DishModel;
+import com.example.usuario.catering.models.DishListModel;
 import com.example.usuario.catering.net.NetServices;
 import com.example.usuario.catering.net.OnBackgroundTaskCallback;
 import com.example.usuario.catering.net.VisibleAnimation;
 import com.google.gson.Gson;
 
-import org.apache.http.NameValuePair;
-import org.apache.http.message.BasicNameValuePair;
 
-import java.util.ArrayList;
-import java.util.List;
-
-
-public class CreateDish extends Fragment {
+/**
+ * A simple {@link Fragment} subclass.
+ * Activities that contain this fragment must implement the
+ * {@link com.example.usuario.catering.interfaces.OnFragmentInteractionListener} interface
+ * to handle interaction events.
+ * Use the {@link DishList#newInstance} factory method to
+ * create an instance of this fragment.
+ */
+public class DishList extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    EditText dishNameTxt, dishDescriptionTxt;
-    Button createDishBtn;
-
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-    private DishModel dishModel;
+
+    private GridView dishGridView;
+    private DishListModel dishListModel;
 
     private OnFragmentInteractionListener mListener;
 
-    public CreateDish() {
+    public DishList() {
         // Required empty public constructor
     }
 
@@ -51,11 +51,11 @@ public class CreateDish extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment CreateDish.
+     * @return A new instance of fragment DishList.
      */
     // TODO: Rename and change types and number of parameters
-    public static CreateDish newInstance(String param1, String param2) {
-        CreateDish fragment = new CreateDish();
+    public static DishList newInstance(String param1, String param2) {
+        DishList fragment = new DishList();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -72,30 +72,17 @@ public class CreateDish extends Fragment {
         }
     }
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View rootView = inflater.inflate(R.layout.fragment_create_dish, container, false);
-        initUI(rootView);
-        setClicks();
-        return rootView;
+        View dishView = inflater.inflate(R.layout.fragment_dish_list, container, false);
+        initUI(dishView);
+        getData();
+        return dishView;
     }
 
-    private void setClicks() {
-        createDishBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                createDish();
-            }
-        });
-    }
-
-    private void createDish() {
-        List<NameValuePair> listBody = new ArrayList<NameValuePair>(2);
-        listBody.add(new BasicNameValuePair("name", dishNameTxt.getText().toString()));
-        listBody.add(new BasicNameValuePair("description", dishDescriptionTxt.getText().toString()));
+    private void getData() {
         new NetServices(new OnBackgroundTaskCallback() {
             @Override
             public void onTaskCompleted(String response) {
@@ -105,18 +92,28 @@ public class CreateDish extends Fragment {
 
             @Override
             public void onTaskError(String error) {
-                Toast.makeText(getActivity(), "Error:" + error, Toast.LENGTH_SHORT).show();
-            }
-        }, new VisibleAnimation(getActivity().findViewById(R.id.dishes_progress_bar)), listBody, "/dish").execute(NetServices.WS_CALL_POST);
-    }
 
-    private void performAction() {
-        Toast.makeText(getActivity(), "Dish created succesfully", Toast.LENGTH_SHORT).show();
+            }
+        }, new VisibleAnimation(getActivity().findViewById(R.id.dishes_progress_bar)), "/dish").execute(NetServices.WS_CALL_GET);
     }
 
     private void parseJSON(String response) {
         Gson gson = new Gson();
-        dishModel = gson.fromJson(response, DishModel.class);
+        dishListModel = gson.fromJson(response, DishListModel.class);
+        setAdapter(dishListModel);
+    }
+
+    private void setAdapter(DishListModel dishListModel) {
+        DishListAdapter dishListAdapter = new DishListAdapter(getActivity(), dishListModel.getDishList());
+        dishGridView.setAdapter(dishListAdapter);
+    }
+
+    private void performAction() {
+
+    }
+
+    private void initUI(View dishView) {
+        dishGridView = (GridView) dishView.findViewById(R.id.listDishes);
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -124,12 +121,6 @@ public class CreateDish extends Fragment {
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);
         }
-    }
-
-    private void initUI(View rootView) {
-        dishNameTxt = (EditText) rootView.findViewById(R.id.dish_name);
-        dishDescriptionTxt = (EditText) rootView.findViewById(R.id.dish_description);
-        createDishBtn = (Button) rootView.findViewById(R.id.createDish);
     }
 
     @Override
