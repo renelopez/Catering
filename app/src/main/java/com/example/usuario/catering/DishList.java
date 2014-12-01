@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridView;
+import android.widget.ListView;
 
 import com.example.usuario.catering.adapters.DishListAdapter;
 import com.example.usuario.catering.interfaces.OnFragmentInteractionListener;
@@ -36,7 +37,7 @@ public class DishList extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    private GridView dishGridView;
+    private ListView dishListView;
     private DishListModel dishListModel;
 
     private OnFragmentInteractionListener mListener;
@@ -105,7 +106,7 @@ public class DishList extends Fragment {
 
     private void setAdapter(DishListModel dishListModel) {
         DishListAdapter dishListAdapter = new DishListAdapter(getActivity(), dishListModel.getDishList());
-        dishGridView.setAdapter(dishListAdapter);
+        dishListView.setAdapter(dishListAdapter);
     }
 
     private void performAction() {
@@ -113,7 +114,7 @@ public class DishList extends Fragment {
     }
 
     private void initUI(View dishView) {
-        dishGridView = (GridView) dishView.findViewById(R.id.listDishes);
+        dishListView = (ListView) dishView.findViewById(R.id.listDishes);
     }
 
     // TODO: Rename method, update argument and hook method into UI event

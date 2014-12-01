@@ -4,11 +4,10 @@
     android:layout_height="match_parent"
     tools:context="com.example.usuario.catering.DishList">
 
-    <GridView
+    <ListView
         android:id="@+id/listDishes"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:numColumns="2" />
+        android:layout_weight="1" />
 
 </FrameLayout>
