@@ -1,0 +1,50 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:weightSum="1"
+    tools:context="com.example.usuario.catering.CreateUser">
+
+    <EditText
+        android:id="@+id/user_username"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ellipsize="none"
+        android:hint="@string/user_username_placeholder"
+        android:maxLines="1"
+        android:singleLine="true" />
+    <EditText
+        android:id="@+id/user_password"
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:hint="@string/user_password_placeholder"
+        android:maxLines="1"
+        android:singleLine="true"
+        android:inputType="textPassword" />
+    <EditText
+        android:id="@+id/firstName"
+        android:layout_marginTop="20dp"
+        android:layout_width="361dp"
+        android:layout_height="match_parent"
+        android:hint="@string/user_firstName_placeholder"
+        android:maxLines="1"
+        android:singleLine="true" />
+    <EditText
+        android:id="@+id/user_lastName"
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ellipsize="none"
+        android:hint="@string/user_lastName_placeholder"
+        android:maxLines="1"
+        android:singleLine="true" />
+    <Button
+        android:id="@+id/createDish"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/dish_create" />
+
+
+</LinearLayout>

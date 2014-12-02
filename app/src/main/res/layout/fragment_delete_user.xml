@@ -2,35 +2,33 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context="com.example.usuario.catering.DeleteDish">
-
+    android:orientation="vertical">
     <!-- TODO: Update blank fragment layout -->
-
     <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/delete_dish_advice"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+    android:id="@+id/textView"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="@string/delete_user_advice"
+    android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <Button
-        android:id="@+id/searchDishButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/dish_search" />
+        android:text="@string/user_search" />
+
     <TextView
         android:layout_marginTop="20dp"
-        android:id="@+id/dishToDelete"
+        android:id="@+id/userToDelete"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium" />
+
+
     <Button
-        android:id="@+id/deletDishButton"
+        android:id="@+id/button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/dish_delete" />
-
+        android:text="@string/user_delete" />
 
 
 </LinearLayout>

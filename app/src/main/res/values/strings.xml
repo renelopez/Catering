@@ -19,12 +19,20 @@
     <string name="delete_instructions">Please choose the dish that you want to delete</string>
     <string name="dish_search">Search a dish...</string>
     <string name="delete_dish_advice">Please click the \"Search a dish\" button to look for the dish to be deleted</string>
-    <string name="dish_delete">Delete dishes</string>
+    <string name="dish_delete">Delete dish</string>
     <string name="title_activity_dish_list">DishListActivity</string>
     <string name="Monday">Monday</string>
     <string name="Tuesday">Tuesday</string>
     <string name="Wednesday">Wednesday</string>
     <string name="Thursday">Thursday</string>
     <string name="Friday">Friday</string>
+    <string name="title_activity_create_user">CreateUser</string>
+    <string name="user_username_placeholder">Please enter your username</string>
+    <string name="user_firstName_placeholder">Please enter your first name</string>
+    <string name="user_password_placeholder">Please enter your password</string>
+    <string name="user_lastName_placeholder">Please enter your last name</string>
+    <string name="delete_user_advice">Please click on the \"Search a user\" button to look for the user to be deleted</string>
+    <string name="user_search">Search a user...</string>
+    <string name="user_delete">Delete user</string>
 
 </resources>

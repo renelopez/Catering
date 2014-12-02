@@ -64,7 +64,7 @@ public class DishListAdapter extends BaseAdapter {
 
     private void initUI(DishViewHolder dishViewHolder, View convertView) {
         dishViewHolder.text_name = (TextView) convertView.findViewById(R.id.dishName);
-        dishViewHolder.text_description = (TextView) convertView.findViewById(R.id.dishDescription);
+        //dishViewHolder.text_description = (TextView) convertView.findViewById(R.id.dishDescription);
     }
 
     private class DishViewHolder {
