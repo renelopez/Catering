@@ -1,35 +1,86 @@
 package com.example.usuario.catering;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import com.example.usuario.catering.adapters.DishListAdapter;
+import com.example.usuario.catering.models.DishListModel;
+import com.example.usuario.catering.models.DishModel;
+import com.example.usuario.catering.net.NetServices;
+import com.example.usuario.catering.net.OnBackgroundTaskCallback;
+import com.example.usuario.catering.net.VisibleAnimation;
+import com.google.gson.Gson;
+
 
 public class DishListActivity extends Activity {
+
+    private DishListModel dishListModel;
+    private ListView dishListView;
+    private DishListAdapter dishListAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dish_list);
         initUI();
+        getData();
+        setClicks();
+
+    }
+
+    private void setClicks() {
+        dishListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+                DishModel selectedItem = dishListAdapter.getItem(position);
+                Intent intent=new Intent();
+                intent.putExtra("itemSelected", (java.io.Serializable) selectedItem);
+                setResult(500,intent);
+                finish();
+            }
+        });
     }
 
     private void initUI() {
-        String[] seven = {
-                "Dark Leafy Greens",
-                "Nuts",
-                "Carrots",
-                "Green Tea",
-                "Whole Grains",
-                "Fruits"};
-        ListView lw = (ListView) findViewById(R.id.dish_listView);
-        lw.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_multiple_choice, seven));
-        lw.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
+        dishListView= (ListView) findViewById(R.id.dish_listView);
     }
 
+    private void getData() {
+        new NetServices(new OnBackgroundTaskCallback() {
+            @Override
+            public void onTaskCompleted(String response) {
+                parseJSON(response);
+                performAction();
+            }
+
+            @Override
+            public void onTaskError(String error) {
+
+            }
+        }, new VisibleAnimation(findViewById(R.id.dishes_progress_bar)), "/dish").execute(NetServices.WS_CALL_GET);
+    }
+
+    private void parseJSON(String response) {
+        Gson gson = new Gson();
+        dishListModel = gson.fromJson(response, DishListModel.class);
+        setAdapter(dishListModel);
+    }
+
+    private void setAdapter(DishListModel dishListModel) {
+        dishListAdapter = new DishListAdapter(this, dishListModel.getDishList());
+        dishListView.setAdapter(dishListAdapter);
+    }
+
+    private void performAction() {
+
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

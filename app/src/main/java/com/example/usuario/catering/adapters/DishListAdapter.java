@@ -30,7 +30,7 @@ public class DishListAdapter extends BaseAdapter {
     }
 
     @Override
-    public Object getItem(int position) {
+    public DishModel getItem(int position) {
         return dishList.get(position);
     }
 

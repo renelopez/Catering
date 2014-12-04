@@ -2,6 +2,7 @@ package com.example.usuario.catering;
 
 import android.app.Activity;
 import android.app.Fragment;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -9,14 +10,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.example.usuario.catering.interfaces.OnFragmentInteractionListener;
+import com.example.usuario.catering.models.DishModel;
 
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link com.example.usuario.catering.CreateUser.OnFragmentInteractionListener} interface
+ * {@link com.example.usuario.catering.interfaces.OnFragmentInteractionListener} interface
  * to handle interaction events.
  * Use the {@link DeleteDish#newInstance} factory method to
  * create an instance of this fragment.
@@ -32,6 +35,7 @@ public class DeleteDish extends Fragment {
     private String mParam2;
 
     private Button searchDishBtn,deleteDishBtn;
+    DishModel dishModelToDelete;
 
 
     private OnFragmentInteractionListener mListener;
@@ -68,6 +72,17 @@ public class DeleteDish extends Fragment {
     }
 
     @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode==500){
+            DishModel dishModel= (DishModel) data.getExtras().get("itemSelected");
+            TextView txtView= (TextView) getActivity().findViewById(R.id.dishToDelete);
+            txtView.setText(dishModel.getName());
+        }
+
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
@@ -82,8 +97,8 @@ public class DeleteDish extends Fragment {
         searchDishBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                //startActivityForResult();
+                Intent intent=new Intent(getActivity(),DishListActivity.class);
+                startActivityForResult(intent,300);
             }
         });
     }
