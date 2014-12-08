@@ -2,6 +2,7 @@ package com.example.usuario.catering;
 
 import android.app.Activity;
 import android.app.Fragment;
+import android.app.FragmentManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -112,6 +113,8 @@ public class CreateDish extends Fragment {
 
     private void performAction() {
         Toast.makeText(getActivity(), "Dish created succesfully", Toast.LENGTH_SHORT).show();
+        FragmentManager manager=getActivity().getFragmentManager();
+        manager.beginTransaction().replace(R.id.dishes_content_frame, DishList.newInstance("", "")).commit();
     }
 
     private void parseJSON(String response) {

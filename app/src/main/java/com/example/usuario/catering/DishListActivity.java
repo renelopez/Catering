@@ -41,7 +41,7 @@ public class DishListActivity extends Activity {
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
                 DishModel selectedItem = dishListAdapter.getItem(position);
                 Intent intent=new Intent();
-                intent.putExtra("itemSelected", (java.io.Serializable) selectedItem);
+                intent.putExtra("itemSelected",selectedItem);
                 setResult(500,intent);
                 finish();
             }
@@ -50,6 +50,7 @@ public class DishListActivity extends Activity {
 
     private void initUI() {
         dishListView= (ListView) findViewById(R.id.dish_listView);
+        setTitle(getResources().getString(R.string.choose_dish));
     }
 
     private void getData() {
@@ -58,13 +59,14 @@ public class DishListActivity extends Activity {
             public void onTaskCompleted(String response) {
                 parseJSON(response);
                 performAction();
+
             }
 
             @Override
             public void onTaskError(String error) {
 
             }
-        }, new VisibleAnimation(findViewById(R.id.dishes_progress_bar)), "/dish").execute(NetServices.WS_CALL_GET);
+        }, new VisibleAnimation(findViewById(R.id.list_dishes_progress_bar)), "/dish").execute(NetServices.WS_CALL_GET);
     }
 
     private void parseJSON(String response) {

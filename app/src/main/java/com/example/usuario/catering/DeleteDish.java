@@ -2,6 +2,7 @@ package com.example.usuario.catering;
 
 import android.app.Activity;
 import android.app.Fragment;
+import android.app.FragmentManager;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -11,9 +12,13 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.usuario.catering.interfaces.OnFragmentInteractionListener;
 import com.example.usuario.catering.models.DishModel;
+import com.example.usuario.catering.net.NetServices;
+import com.example.usuario.catering.net.OnBackgroundTaskCallback;
+import com.example.usuario.catering.net.VisibleAnimation;
 
 
 /**
@@ -39,6 +44,7 @@ public class DeleteDish extends Fragment {
 
 
     private OnFragmentInteractionListener mListener;
+    private DishModel dishModel;
 
     public DeleteDish() {
         // Required empty public constructor
@@ -75,7 +81,7 @@ public class DeleteDish extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(resultCode==500){
-            DishModel dishModel= (DishModel) data.getExtras().get("itemSelected");
+            dishModel= (DishModel) data.getSerializableExtra("itemSelected");
             TextView txtView= (TextView) getActivity().findViewById(R.id.dishToDelete);
             txtView.setText(dishModel.getName());
         }
@@ -101,6 +107,32 @@ public class DeleteDish extends Fragment {
                 startActivityForResult(intent,300);
             }
         });
+        deleteDishBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                deleteDish();
+            }
+        });
+    }
+
+    private void deleteDish() {
+        new NetServices(new OnBackgroundTaskCallback() {
+            @Override
+            public void onTaskCompleted(String response) {
+               performAction();
+            }
+
+            @Override
+            public void onTaskError(String error) {
+
+            }
+        },new VisibleAnimation(getActivity().findViewById(R.id.dishes_progress_bar)),dishModel.getId(), "/dish").execute(NetServices.WS_CALL_DELETE);
+    }
+
+    private void performAction() {
+        Toast.makeText(getActivity(),"Dish deleted succesfully",Toast.LENGTH_SHORT).show();
+        FragmentManager manager=getActivity().getFragmentManager();
+        manager.beginTransaction().replace(R.id.dishes_content_frame, DishList.newInstance("", "")).commit();
     }
 
     private void initUI(View rootView) {

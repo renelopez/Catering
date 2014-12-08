@@ -16,7 +16,7 @@
     <string name="dish_name_placeholder">Enter a dish name</string>
     <string name="dish_description_placeholder">Enter a description</string>
     <string name="dish_advice">Please enter the required dish information.</string>
-    <string name="delete_instructions">Please choose the dish that you want to delete</string>
+    <string name="delete_instructions">Delete Dish</string>
     <string name="dish_search">Search a dish...</string>
     <string name="delete_dish_advice">Please click the \"Search a dish\" button to look for the dish to be deleted</string>
     <string name="dish_delete">Delete dish</string>
@@ -34,5 +34,8 @@
     <string name="delete_user_advice">Please click on the \"Search a user\" button to look for the user to be deleted</string>
     <string name="user_search">Search a user...</string>
     <string name="user_delete">Delete user</string>
+    <string name="choose_dish">Choose a dish...</string>
+    <string name="title_activity_users">UsersActivity</string>
+    <string name="title_activity_user_list">UserListActivity</string>
 
 </resources>

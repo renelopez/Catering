@@ -59,7 +59,7 @@ public class DishListAdapter extends BaseAdapter {
     private void setText(DishViewHolder dishViewHolder, int position) {
         DishModel model = dishList.get(position);
         dishViewHolder.text_name.setText(model.getName());
-        dishViewHolder.text_description.setText(model.getDescription());
+       // dishViewHolder.text_description.setText(model.getDescription());
     }
 
     private void initUI(DishViewHolder dishViewHolder, View convertView) {

@@ -12,6 +12,7 @@ import org.apache.http.NameValuePair;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpDelete;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
@@ -29,6 +30,7 @@ import java.util.List;
 public class NetServices extends AsyncTask<Integer, Void, String> {
     public static final int WS_CALL_GET = 0;
     public static final int WS_CALL_POST = 1;
+    public static final int WS_CALL_DELETE = 2;
     //private final String APP_ID = "j2aLnaENSizTFXE725Lww3MTtqiMfEQhVO5HTmSD";
     //private final String REST_API_KEY = "jmKBd9wASHKDiBFLaQvExQ1xPh50OPONajo1VZN";
     private final int STATUS_OK = 200;
@@ -42,6 +44,7 @@ public class NetServices extends AsyncTask<Integer, Void, String> {
     private OnBackgroundTaskCallback callbacks;
     private OnBackgroundTaskAnimation animation;
     private int status;
+    private int id;
 
     public NetServices(OnBackgroundTaskCallback callbacks,
                        OnBackgroundTaskAnimation animation,
@@ -49,6 +52,14 @@ public class NetServices extends AsyncTask<Integer, Void, String> {
         this.callbacks = callbacks;
         this.animation = animation;
         this.messageList = messageList;
+        this.ROOT_URL = this.ROOT_URL + apiResource;
+    }
+    public NetServices(OnBackgroundTaskCallback callbacks,
+                       OnBackgroundTaskAnimation animation,
+                       int id, String apiResource) {
+        this.callbacks = callbacks;
+        this.animation = animation;
+        this.id = id;
         this.ROOT_URL = this.ROOT_URL + apiResource;
     }
 
@@ -78,12 +89,55 @@ public class NetServices extends AsyncTask<Integer, Void, String> {
                 case WS_CALL_POST:
                     response = connectionPOST();
                     break;
+                case WS_CALL_DELETE:
+                    response = connectionDELETE();
+                    break;
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
 
         return response;
+    }
+
+    private String connectionDELETE() {
+        HttpDelete httpDelete = new HttpDelete(ROOT_URL+"/"+this.id);
+
+        httpDelete.setHeader("Accept", "application/json");
+        httpDelete.setHeader("Content-type", "application/json");
+
+        HttpParams httpParameters;
+        httpParameters = new BasicHttpParams();
+        //httpParameters.setIntParameter("id",this.id);
+        int timeoutConnection = 100000; //Timeout until a connection is established.
+        int timeoutSocket = 100000; //Timeout for waiting for data.
+
+        HttpConnectionParams.setSoTimeout(httpParameters, timeoutSocket);
+        HttpConnectionParams.setConnectionTimeout(httpParameters, timeoutConnection);
+
+        HttpClient httpClient = new DefaultHttpClient(httpParameters);
+
+        try {
+            HttpResponse response = httpClient.execute(httpDelete);
+            status = response.getStatusLine().getStatusCode();
+
+            switch (status) {
+                case STATUS_OK:
+                    HttpEntity e = response.getEntity();
+                    return parseData(e.getContent());
+
+                case STATUS_NOT_FOUND:
+                case STATUS_UNKNOWN:
+                default:
+                    return ERROR;
+            }
+        } catch (ClientProtocolException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return ERROR;
     }
 
     private String connectionGET() {
@@ -94,6 +148,7 @@ public class NetServices extends AsyncTask<Integer, Void, String> {
 
         HttpParams httpParameters;
         httpParameters = new BasicHttpParams();
+        httpParameters.setIntParameter("Id",id);
         int timeoutConnection = 100000; //Timeout until a connection is established.
         int timeoutSocket = 100000; //Timeout for waiting for data.
 
