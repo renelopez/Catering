@@ -115,6 +115,7 @@ public class DishList extends Fragment {
 
     private void initUI(View dishView) {
         dishListView = (ListView) dishView.findViewById(R.id.listDishes);
+        getActivity().setTitle("Current Dishes");
     }
 
     // TODO: Rename method, update argument and hook method into UI event

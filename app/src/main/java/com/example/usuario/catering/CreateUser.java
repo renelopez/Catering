@@ -137,6 +137,7 @@ public class CreateUser extends Fragment {
         firstNameTxt= (EditText) view.findViewById(R.id.user_first_name);
         lastNameTxt= (EditText) view.findViewById(R.id.user_last_name);
         createUserBtn= (Button) view.findViewById(R.id.user_create_user);
+        getActivity().setTitle("Create User");
     }
 
     // TODO: Rename method, update argument and hook method into UI event

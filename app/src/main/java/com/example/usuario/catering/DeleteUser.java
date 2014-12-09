@@ -14,7 +14,7 @@ import com.example.usuario.catering.interfaces.OnFragmentInteractionListener;
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link DeleteUser.OnFragmentInteractionListener} interface
+ * {@link com.example.usuario.catering.interfaces.OnFragmentInteractionListener} interface
  * to handle interaction events.
  * Use the {@link DeleteUser#newInstance} factory method to
  * create an instance of this fragment.
@@ -66,7 +66,14 @@ public class DeleteUser extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_delete_user, container, false);
+        View view =inflater.inflate(R.layout.fragment_delete_user, container, false);
+        initUI(view);
+        return view;
+
+    }
+
+    private void initUI(View view) {
+        getActivity().setTitle("Delete User");
     }
 
     // TODO: Rename method, update argument and hook method into UI event

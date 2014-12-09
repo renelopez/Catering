@@ -12,6 +12,11 @@ public class UserListActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_list);
+        initUI();
+    }
+
+    private void initUI() {
+        setTitle("Choose a dish..");
     }
 
 

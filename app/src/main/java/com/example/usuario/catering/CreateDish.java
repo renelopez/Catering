@@ -133,6 +133,7 @@ public class CreateDish extends Fragment {
         dishNameTxt = (EditText) rootView.findViewById(R.id.dish_name);
         dishDescriptionTxt = (EditText) rootView.findViewById(R.id.dish_description);
         createDishBtn = (Button) rootView.findViewById(R.id.createDish);
+        getActivity().setTitle("Create a dish..");
     }
 
     @Override

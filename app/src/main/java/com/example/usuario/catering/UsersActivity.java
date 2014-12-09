@@ -13,6 +13,11 @@ public class UsersActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_users);
+        initUI();
+    }
+
+    private void initUI() {
+        setTitle("Users Menu");
     }
 
 

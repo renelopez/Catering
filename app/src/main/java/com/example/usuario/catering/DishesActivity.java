@@ -101,6 +101,7 @@ public class DishesActivity extends Activity implements OnFragmentInteractionLis
         list = (ListView) findViewById(R.id.dishes_left_drawer);
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         findViewById(R.id.dishes_progress_bar).setVisibility(View.INVISIBLE);
+        setTitle("Dishes Menu");
     }
 
     @Override

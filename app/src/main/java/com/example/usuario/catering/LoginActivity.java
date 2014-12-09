@@ -46,6 +46,7 @@ public class LoginActivity extends Activity {
         userNameTxt = (EditText) findViewById(R.id.username);
         passwordTxt = (EditText) findViewById(R.id.password);
         loginBtn = (Button) findViewById(R.id.signIn);
+        setTitle("Catering App");
     }
 
     private void setClicks() {
