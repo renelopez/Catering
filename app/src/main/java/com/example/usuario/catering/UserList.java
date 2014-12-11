@@ -7,11 +7,22 @@ import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
+
+import com.example.usuario.catering.adapters.DishListAdapter;
+import com.example.usuario.catering.adapters.UserListAdapter;
+import com.example.usuario.catering.interfaces.OnFragmentInteractionListener;
+import com.example.usuario.catering.models.DishListModel;
+import com.example.usuario.catering.models.UserListModel;
+import com.example.usuario.catering.net.NetServices;
+import com.example.usuario.catering.net.OnBackgroundTaskCallback;
+import com.example.usuario.catering.net.VisibleAnimation;
+import com.google.gson.Gson;
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link UserList.OnFragmentInteractionListener} interface
+ * {@link com.example.usuario.catering.interfaces.OnFragmentInteractionListener} interface
  * to handle interaction events.
  * Use the {@link UserList#newInstance} factory method to
  * create an instance of this fragment.
@@ -27,6 +38,8 @@ public class UserList extends Fragment {
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
+    private ListView userListView;
+    private UserListModel userListModel;
 
     /**
      * Use this factory method to create a new instance of
@@ -65,10 +78,42 @@ public class UserList extends Fragment {
         // Inflate the layout for this fragment
         View view=inflater.inflate(R.layout.fragment_user_list, container, false);
         initUI(view);
+        getData();
         return view;
     }
 
+    private void getData() {
+        new NetServices(new OnBackgroundTaskCallback() {
+            @Override
+            public void onTaskCompleted(String response) {
+                parseJSON(response);
+                performAction();
+            }
+
+            @Override
+            public void onTaskError(String error) {
+
+            }
+        }, new VisibleAnimation(getActivity().findViewById(R.id.users_progress_bar)), "/user").execute(NetServices.WS_CALL_GET);
+    }
+
+    private void parseJSON(String response) {
+        Gson gson = new Gson();
+        userListModel = gson.fromJson(response, UserListModel.class);
+        setAdapter(userListModel);
+    }
+
+    private void setAdapter(UserListModel dishListModel) {
+        UserListAdapter userListAdapter = new UserListAdapter(getActivity(), userListModel.getUserList());
+        userListView.setAdapter(userListAdapter);
+    }
+
+    private void performAction() {
+
+    }
+
     private void initUI(View view) {
+        userListView = (ListView) view.findViewById(R.id.list_users);
         getActivity().setTitle("Current Users");
     }
 
@@ -94,21 +139,6 @@ public class UserList extends Fragment {
     public void onDetach() {
         super.onDetach();
         mListener = null;
-    }
-
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p/>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        public void onFragmentInteraction(Uri uri);
     }
 
 }

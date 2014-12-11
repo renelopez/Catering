@@ -5,13 +5,14 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v4.app.ActionBarDrawerToggle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toolbar;
 
 import com.example.usuario.catering.adapters.DishesDrawerAdapter;
 import com.example.usuario.catering.interfaces.OnFragmentInteractionListener;
@@ -34,8 +35,6 @@ public class DishesActivity extends Activity implements OnFragmentInteractionLis
         setAdapter();
         setClicks();
         setToggle();
-        // FragmentManager manager=getFragmentManager();
-        //manager.beginTransaction().replace(R.id.dishes_content_frame,DeleteDish.newInstance("","")).commit();
     }
 
     private void setClicks() {
