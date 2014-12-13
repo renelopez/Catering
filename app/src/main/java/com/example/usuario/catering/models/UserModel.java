@@ -4,35 +4,27 @@ package com.example.usuario.catering.models;
  * Created by Rene Lopez on 07/12/2014.
  */
 public class UserModel {
-    private int Id;
-    private String userName;
-    private String password;
+    private int id;
+    private String username;
     private String firstName;
     private String lastName;
 
     public int getId() {
-        return Id;
+        return id;
     }
 
     public void setId(int id) {
-        Id = id;
+        this.id = id;
     }
 
     public String getUserName() {
-        return userName;
+        return username;
     }
 
     public void setUserName(String userName) {
-        this.userName = userName;
+        this.username = userName;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
 
     public String getFirstName() {
         return firstName;
