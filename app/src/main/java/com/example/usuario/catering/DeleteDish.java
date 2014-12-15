@@ -10,7 +10,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,15 +33,11 @@ public class DeleteDish extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-
+    DishModel dishModelToDelete;
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-
-    private Button searchDishBtn,deleteDishBtn;
-    DishModel dishModelToDelete;
-
-
+    private Button searchDishBtn, deleteDishBtn;
     private OnFragmentInteractionListener mListener;
     private DishModel dishModel;
 
@@ -80,9 +75,9 @@ public class DeleteDish extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(resultCode==500){
-            dishModel= (DishModel) data.getSerializableExtra("itemSelected");
-            TextView txtView= (TextView) getActivity().findViewById(R.id.dishToDelete);
+        if (resultCode == 500) {
+            dishModel = (DishModel) data.getSerializableExtra("itemSelected");
+            TextView txtView = (TextView) getActivity().findViewById(R.id.dish_to_delete_text);
             txtView.setText(dishModel.getName());
         }
 
@@ -103,8 +98,8 @@ public class DeleteDish extends Fragment {
         searchDishBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(getActivity(),DishListActivity.class);
-                startActivityForResult(intent,300);
+                Intent intent = new Intent(getActivity(), DishListActivity.class);
+                startActivityForResult(intent, 300);
             }
         });
         deleteDishBtn.setOnClickListener(new View.OnClickListener() {
@@ -119,25 +114,25 @@ public class DeleteDish extends Fragment {
         new NetServices(new OnBackgroundTaskCallback() {
             @Override
             public void onTaskCompleted(String response) {
-               performAction();
+                performAction();
             }
 
             @Override
             public void onTaskError(String error) {
 
             }
-        },new VisibleAnimation(getActivity().findViewById(R.id.dishes_progress_bar)),dishModel.getId(), "/dish").execute(NetServices.WS_CALL_DELETE);
+        }, new VisibleAnimation(getActivity().findViewById(R.id.dishes_progress_bar)), dishModel.getId(), "/dish").execute(NetServices.WS_CALL_DELETE);
     }
 
     private void performAction() {
-        Toast.makeText(getActivity(),"Dish deleted succesfully",Toast.LENGTH_SHORT).show();
-        FragmentManager manager=getActivity().getFragmentManager();
+        Toast.makeText(getActivity(), "Dish deleted succesfully", Toast.LENGTH_SHORT).show();
+        FragmentManager manager = getActivity().getFragmentManager();
         manager.beginTransaction().replace(R.id.dishes_content_frame, DishList.newInstance("", "")).commit();
     }
 
     private void initUI(View rootView) {
-        searchDishBtn= (Button) rootView.findViewById(R.id.searchDishButton);
-        deleteDishBtn=(Button) rootView.findViewById(R.id.deletDishButton);
+        searchDishBtn = (Button) rootView.findViewById(R.id.search_dish_button);
+        deleteDishBtn = (Button) rootView.findViewById(R.id.delete_dish_button);
 
     }
 

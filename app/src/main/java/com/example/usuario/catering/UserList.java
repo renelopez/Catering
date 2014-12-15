@@ -1,18 +1,16 @@
 package com.example.usuario.catering;
 
 import android.app.Activity;
+import android.app.Fragment;
 import android.net.Uri;
 import android.os.Bundle;
-import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
-import com.example.usuario.catering.adapters.DishListAdapter;
 import com.example.usuario.catering.adapters.UserListAdapter;
 import com.example.usuario.catering.interfaces.OnFragmentInteractionListener;
-import com.example.usuario.catering.models.DishListModel;
 import com.example.usuario.catering.models.UserListModel;
 import com.example.usuario.catering.net.NetServices;
 import com.example.usuario.catering.net.OnBackgroundTaskCallback;
@@ -41,6 +39,10 @@ public class UserList extends Fragment {
     private ListView userListView;
     private UserListModel userListModel;
 
+    public UserList() {
+        // Required empty public constructor
+    }
+
     /**
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
@@ -59,10 +61,6 @@ public class UserList extends Fragment {
         return fragment;
     }
 
-    public UserList() {
-        // Required empty public constructor
-    }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -76,7 +74,7 @@ public class UserList extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view=inflater.inflate(R.layout.fragment_user_list, container, false);
+        View view = inflater.inflate(R.layout.fragment_user_list, container, false);
         initUI(view);
         getData();
         return view;
@@ -103,7 +101,7 @@ public class UserList extends Fragment {
         setAdapter(userListModel);
     }
 
-    private void setAdapter(UserListModel dishListModel) {
+    private void setAdapter(UserListModel userListModel) {
         UserListAdapter userListAdapter = new UserListAdapter(getActivity(), userListModel.getUserList());
         userListView.setAdapter(userListAdapter);
     }

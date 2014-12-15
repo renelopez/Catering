@@ -14,7 +14,7 @@ import com.example.usuario.catering.interfaces.OnFragmentInteractionListener;
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link CreateDishMenu.OnFragmentInteractionListener} interface
+ * {@link com.example.usuario.catering.interfaces.OnFragmentInteractionListener} interface
  * to handle interaction events.
  * Use the {@link CreateDishMenu#newInstance} factory method to
  * create an instance of this fragment.
@@ -66,7 +66,18 @@ public class CreateDishMenu extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_create_dish_menu, container, false);
+        View view = inflater.inflate(R.layout.fragment_create_dish_menu, container, false);
+        initUI(view);
+        setClicks();
+        return view;
+    }
+
+    private void setClicks() {
+
+    }
+
+    private void initUI(View view) {
+
     }
 
     // TODO: Rename method, update argument and hook method into UI event

@@ -8,29 +8,30 @@
     <!-- TODO: Update blank fragment layout -->
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/search_dish_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/delete_dish_advice"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <Button
-        android:id="@+id/searchDishButton"
+        android:id="@+id/search_dish_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/dish_search" />
+
     <TextView
-        android:layout_marginTop="20dp"
-        android:id="@+id/dishToDelete"
+        android:id="@+id/dish_to_delete_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
         android:textAppearance="?android:attr/textAppearanceMedium" />
+
     <Button
-        android:id="@+id/deletDishButton"
+        android:id="@+id/delete_dish_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/dish_delete" />
-
 
 
 </LinearLayout>

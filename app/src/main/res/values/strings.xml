@@ -37,5 +37,8 @@
     <string name="choose_dish">Choose a dish...</string>
     <string name="title_activity_users">UsersActivity</string>
     <string name="title_activity_user_list">UserListActivity</string>
+    <string name="choose_user">Choose a user...</string>
+    <string name="user_create">Create User</string>
+    <string name="save_menu">Save Week Menu</string>
 
 </resources>

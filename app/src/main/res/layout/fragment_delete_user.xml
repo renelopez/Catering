@@ -1,31 +1,31 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
     <!-- TODO: Update blank fragment layout -->
     <TextView
-    android:id="@+id/textView"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="@string/delete_user_advice"
-    android:textAppearance="?android:attr/textAppearanceMedium" />
+        android:id="@+id/search_user_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/delete_user_advice"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <Button
+        android:id="@+id/search_user_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/user_search" />
 
     <TextView
-        android:layout_marginTop="20dp"
-        android:id="@+id/userToDelete"
+        android:id="@+id/user_to_delete_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/delete_user_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/user_delete" />

@@ -1,9 +1,11 @@
 package com.example.usuario.catering.models;
 
+import java.io.Serializable;
+
 /**
  * Created by Rene Lopez on 07/12/2014.
  */
-public class UserModel {
+public class UserModel implements Serializable {
     private int id;
     private String username;
     private String firstName;

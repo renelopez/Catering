@@ -1,6 +1,5 @@
 package com.example.usuario.catering.adapters;
 
-import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,7 +8,6 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.example.usuario.catering.R;
-import com.example.usuario.catering.models.DishModel;
 import com.example.usuario.catering.models.UserModel;
 
 import java.util.ArrayList;
@@ -23,7 +21,7 @@ public class UserListAdapter extends BaseAdapter {
 
     public UserListAdapter(Context context, ArrayList<UserModel> userList) {
         inflater = LayoutInflater.from(context);
-        this.userList=userList;
+        this.userList = userList;
     }
 
     @Override
@@ -61,7 +59,7 @@ public class UserListAdapter extends BaseAdapter {
 
     private void setText(UserViewHolder userViewHolder, int position) {
         UserModel model = userList.get(position);
-        userViewHolder.text_name.setText(model.getUserName());
+        userViewHolder.text_name.setText(model.getFirstName() + " " + model.getLastName());
         // dishViewHolder.text_description.setText(model.getDescription());
     }
 

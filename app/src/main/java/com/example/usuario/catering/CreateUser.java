@@ -1,10 +1,10 @@
 package com.example.usuario.catering;
 
 import android.app.Activity;
+import android.app.Fragment;
 import android.app.FragmentManager;
 import android.net.Uri;
 import android.os.Bundle;
-import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +13,6 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.usuario.catering.interfaces.OnFragmentInteractionListener;
-import com.example.usuario.catering.models.DishModel;
 import com.example.usuario.catering.models.UserModel;
 import com.example.usuario.catering.net.NetServices;
 import com.example.usuario.catering.net.OnBackgroundTaskCallback;
@@ -44,12 +43,16 @@ public class CreateUser extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-    private EditText usernameTxt,passwordTxt,firstNameTxt,lastNameTxt;
+    private EditText usernameTxt, passwordTxt, firstNameTxt, lastNameTxt;
     private Button createUserBtn;
 
 
     private OnFragmentInteractionListener mListener;
     private UserModel userModel;
+
+    public CreateUser() {
+        // Required empty public constructor
+    }
 
     /**
      * Use this factory method to create a new instance of
@@ -69,10 +72,6 @@ public class CreateUser extends Fragment {
         return fragment;
     }
 
-    public CreateUser() {
-        // Required empty public constructor
-    }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -86,7 +85,7 @@ public class CreateUser extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view= inflater.inflate(R.layout.fragment_create_user, container, false);
+        View view = inflater.inflate(R.layout.fragment_create_user, container, false);
         initUI(view);
         setClicks();
         return view;
@@ -95,15 +94,14 @@ public class CreateUser extends Fragment {
     private void setClicks() {
 
 
-
         createUserBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 List<NameValuePair> listBody = new ArrayList<NameValuePair>(4);
                 listBody.add(new BasicNameValuePair("username", usernameTxt.getText().toString()));
                 listBody.add(new BasicNameValuePair("password", passwordTxt.getText().toString()));
-                listBody.add(new BasicNameValuePair("firstName", usernameTxt.getText().toString()));
-                listBody.add(new BasicNameValuePair("lastName", passwordTxt.getText().toString()));
+                listBody.add(new BasicNameValuePair("firstName", firstNameTxt.getText().toString()));
+                listBody.add(new BasicNameValuePair("lastName", lastNameTxt.getText().toString()));
                 new NetServices(new OnBackgroundTaskCallback() {
                     @Override
                     public void onTaskCompleted(String response) {
@@ -115,14 +113,14 @@ public class CreateUser extends Fragment {
                     public void onTaskError(String error) {
 
                     }
-                },new VisibleAnimation(getActivity().findViewById(R.id.dishes_progress_bar)), listBody, "/user").execute(NetServices.WS_CALL_POST);
+                }, new VisibleAnimation(getActivity().findViewById(R.id.users_progress_bar)), listBody, "/user").execute(NetServices.WS_CALL_POST);
             }
         });
     }
 
     private void performAction() {
         Toast.makeText(getActivity(), "User created succesfully", Toast.LENGTH_SHORT).show();
-        FragmentManager manager=getActivity().getFragmentManager();
+        FragmentManager manager = getActivity().getFragmentManager();
         manager.beginTransaction().replace(R.id.users_content_frame, UserList.newInstance("", "")).commit();
     }
 
@@ -132,11 +130,11 @@ public class CreateUser extends Fragment {
     }
 
     private void initUI(View view) {
-        usernameTxt= (EditText) view.findViewById(R.id.user_username);
-        passwordTxt= (EditText) view.findViewById(R.id.user_password);
-        firstNameTxt= (EditText) view.findViewById(R.id.user_first_name);
-        lastNameTxt= (EditText) view.findViewById(R.id.user_last_name);
-        createUserBtn= (Button) view.findViewById(R.id.user_create_user);
+        usernameTxt = (EditText) view.findViewById(R.id.user_username);
+        passwordTxt = (EditText) view.findViewById(R.id.user_password);
+        firstNameTxt = (EditText) view.findViewById(R.id.user_first_name);
+        lastNameTxt = (EditText) view.findViewById(R.id.user_last_name);
+        createUserBtn = (Button) view.findViewById(R.id.user_create_user);
         getActivity().setTitle("Create User");
     }
 
