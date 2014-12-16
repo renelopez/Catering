@@ -14,7 +14,7 @@
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <SeekBar
-        android:id="@+id/seekBar"
+        android:id="@+id/option_number_seekbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
@@ -26,37 +26,37 @@
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/monday_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Monday" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/tuesday_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Tuesday" />
 
     <Button
-        android:id="@+id/button3"
+        android:id="@+id/wednesday_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Wednesday" />
 
     <Button
-        android:id="@+id/button4"
+        android:id="@+id/thursday_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Thursday" />
 
     <Button
-        android:id="@+id/button5"
+        android:id="@+id/friday_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Friday" />
 
     <Button
-        android:id="@+id/button6"
+        android:id="@+id/set_menu_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"

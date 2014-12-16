@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.SeekBar;
 
 import com.example.usuario.catering.interfaces.OnFragmentInteractionListener;
 
@@ -30,6 +32,11 @@ public class CreateDishMenu extends Fragment {
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
+    private SeekBar optionSeek;
+    private Button mondayBtn;
+    private Button tuesdayBtn;
+    private Button wednesdayBtn;
+    private Button fridayBtn;
 
     public CreateDishMenu() {
         // Required empty public constructor
@@ -68,16 +75,36 @@ public class CreateDishMenu extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_create_dish_menu, container, false);
         initUI(view);
-        setClicks();
+        wireEvents();
         return view;
     }
 
-    private void setClicks() {
+    private void wireEvents() {
+        optionSeek.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
 
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
     }
 
     private void initUI(View view) {
-
+        optionSeek = (SeekBar) view.findViewById(R.id.option_number_seekbar);
+        mondayBtn = (Button) view.findViewById(R.id.monday_button);
+        tuesdayBtn = (Button) view.findViewById(R.id.tuesday_button);
+        wednesdayBtn = (Button) view.findViewById(R.id.wednesday_button);
+        tuesdayBtn = (Button) view.findViewById(R.id.thursday_button);
+        fridayBtn = (Button) view.findViewById(R.id.friday_button);
     }
 
     // TODO: Rename method, update argument and hook method into UI event
