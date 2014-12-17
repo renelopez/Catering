@@ -2,6 +2,7 @@ package com.example.usuario.catering;
 
 import android.app.Activity;
 import android.app.Fragment;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -9,8 +10,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.SeekBar;
+import android.widget.TextView;
 
 import com.example.usuario.catering.interfaces.OnFragmentInteractionListener;
+import com.example.usuario.catering.models.DishModel;
+import com.example.usuario.catering.models.MenuModel;
+
+import java.util.ArrayList;
 
 
 /**
@@ -26,17 +32,20 @@ public class CreateDishMenu extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-
+    ArrayList<DishModel> dishList = new ArrayList<>();
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-
     private OnFragmentInteractionListener mListener;
     private SeekBar optionSeek;
     private Button mondayBtn;
     private Button tuesdayBtn;
     private Button wednesdayBtn;
+    private Button thursdayBtn;
     private Button fridayBtn;
+    private TextView numOptionsText;
+    private int numOptions = 0, mondayCounter = 0, tuesdayCounter = 0, wednesdayCounter = 0, thursdayCounter = 0, fridayCounter = 0;
+    private MenuModel menuModel = new MenuModel();
 
     public CreateDishMenu() {
         // Required empty public constructor
@@ -79,11 +88,20 @@ public class CreateDishMenu extends Fragment {
         return view;
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == 500) {
+            dishList.add((DishModel) data.getSerializableExtra("itemSelected"));
+        }
+    }
+
     private void wireEvents() {
         optionSeek.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-
+                numOptions = i;
+                numOptionsText.setText(Integer.toString(numOptions));
             }
 
             @Override
@@ -93,7 +111,51 @@ public class CreateDishMenu extends Fragment {
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-
+            }
+        });
+        mondayBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), DishListActivity.class);
+                startActivityForResult(intent, 300, new Bundle());
+                mondayCounter++;
+                mondayBtn.setText("Monday " + numOptions + "/" + mondayCounter);
+            }
+        });
+        tuesdayBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), DishListActivity.class);
+                startActivityForResult(intent, 300);
+                tuesdayCounter++;
+                tuesdayBtn.setText("Tuesday " + numOptions + "/" + tuesdayCounter);
+            }
+        });
+        wednesdayBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), DishListActivity.class);
+                startActivityForResult(intent, 300);
+                wednesdayCounter++;
+                tuesdayBtn.setText("Wednesday " + numOptions + "/" + wednesdayCounter);
+            }
+        });
+        thursdayBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), DishListActivity.class);
+                startActivityForResult(intent, 300);
+                thursdayCounter++;
+                thursdayBtn.setText("Thursday " + numOptions + "/" + thursdayCounter);
+            }
+        });
+        fridayBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), DishListActivity.class);
+                startActivityForResult(intent, 300);
+                fridayCounter++;
+                fridayBtn.setText("Friday " + numOptions + "/" + fridayCounter);
             }
         });
     }
@@ -103,8 +165,9 @@ public class CreateDishMenu extends Fragment {
         mondayBtn = (Button) view.findViewById(R.id.monday_button);
         tuesdayBtn = (Button) view.findViewById(R.id.tuesday_button);
         wednesdayBtn = (Button) view.findViewById(R.id.wednesday_button);
-        tuesdayBtn = (Button) view.findViewById(R.id.thursday_button);
+        thursdayBtn = (Button) view.findViewById(R.id.thursday_button);
         fridayBtn = (Button) view.findViewById(R.id.friday_button);
+        numOptionsText = (TextView) view.findViewById(R.id.num_options_text);
     }
 
     // TODO: Rename method, update argument and hook method into UI event

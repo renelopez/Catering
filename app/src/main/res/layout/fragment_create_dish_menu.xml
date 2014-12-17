@@ -13,10 +13,24 @@
         android:text="Set option number"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
-    <SeekBar
-        android:id="@+id/option_number_seekbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+    <FrameLayout
+        android:layout_width="fill_parent"
+        android:layout_height="42dp">
+
+        <SeekBar
+            android:id="@+id/option_number_seekbar"
+            android:layout_width="278dp"
+            android:layout_height="wrap_content"
+            android:max="10" />
+
+        <TextView
+            android:id="@+id/num_options_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right|center_vertical"
+            android:text="0"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+    </FrameLayout>
 
     <TextView
         android:id="@+id/textView2"
@@ -29,31 +43,31 @@
         android:id="@+id/monday_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Monday" />
+        android:text="Monday 0/0" />
 
     <Button
         android:id="@+id/tuesday_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Tuesday" />
+        android:text="Tuesday 0/0" />
 
     <Button
         android:id="@+id/wednesday_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Wednesday" />
+        android:text="Wednesday 0/0" />
 
     <Button
         android:id="@+id/thursday_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Thursday" />
+        android:text="Thursday 0/0" />
 
     <Button
         android:id="@+id/friday_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Friday" />
+        android:text="Friday 0/0" />
 
     <Button
         android:id="@+id/set_menu_button"
