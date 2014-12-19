@@ -7,7 +7,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.example.usuario.catering.adapters.DishListAdapter;
@@ -24,6 +23,7 @@ public class DishListActivity extends Activity {
     private DishListModel dishListModel;
     private ListView dishListView;
     private DishListAdapter dishListAdapter;
+    private String workingDate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +40,7 @@ public class DishListActivity extends Activity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
                 DishModel selectedItem = dishListAdapter.getItem(position);
+                selectedItem.setFormattedDate(workingDate);
                 Intent intent=new Intent();
                 intent.putExtra("itemSelected",selectedItem);
                 setResult(500,intent);
@@ -49,8 +50,12 @@ public class DishListActivity extends Activity {
     }
 
     private void initUI() {
+        Bundle bundleInstance = this.getIntent().getExtras();
+        workingDate = bundleInstance.getString("DOW");
+
         dishListView= (ListView) findViewById(R.id.dish_listView);
         setTitle(getResources().getString(R.string.choose_dish));
+
     }
 
     private void getData() {

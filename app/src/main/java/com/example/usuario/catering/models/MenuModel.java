@@ -1,14 +1,13 @@
 package com.example.usuario.catering.models;
 
 import java.util.ArrayList;
-import java.util.Date;
 
 /**
  * Created by rene.lopez on 12/15/2014.
  */
 public class MenuModel {
     private int id;
-    private Date dateTime;
+    private String formattedDate;
     private ArrayList<DishModel> dishes;
 
     public int getId() {
@@ -19,12 +18,12 @@ public class MenuModel {
         this.id = id;
     }
 
-    public Date getDateTime() {
-        return dateTime;
+    public String getFormattedDate() {
+        return formattedDate;
     }
 
-    public void setDateTime(Date dateTime) {
-        this.dateTime = dateTime;
+    public void setFormattedDate(String dateTime) {
+        this.formattedDate = formattedDate;
     }
 
     public ArrayList<DishModel> getDishes() {

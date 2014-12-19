@@ -1,7 +1,6 @@
 package com.example.usuario.catering.models;
 
 import java.io.Serializable;
-import java.util.Date;
 
 /**
  * Created by Usuario on 28/11/2014.
@@ -9,7 +8,7 @@ import java.util.Date;
 public class DishModel implements Serializable{
     public int id;
     public String name;
-    private Date datetime;
+    private String formattedDate;
 
     public int getId() {
         return id;
@@ -19,12 +18,12 @@ public class DishModel implements Serializable{
         this.id = id;
     }
 
-    public Date getDatetime() {
-        return datetime;
+    public String getFormattedDate() {
+        return formattedDate;
     }
 
-    public void setDatetime(Date datetime) {
-        this.datetime = datetime;
+    public void setFormattedDate(String formattedDate) {
+        this.formattedDate = formattedDate;
     }
 
     public String getName() {

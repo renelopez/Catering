@@ -16,7 +16,10 @@ import com.example.usuario.catering.interfaces.OnFragmentInteractionListener;
 import com.example.usuario.catering.models.DishModel;
 import com.example.usuario.catering.models.MenuModel;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 
 /**
@@ -46,6 +49,7 @@ public class CreateDishMenu extends Fragment {
     private TextView numOptionsText;
     private int numOptions = 0, mondayCounter = 0, tuesdayCounter = 0, wednesdayCounter = 0, thursdayCounter = 0, fridayCounter = 0;
     private MenuModel menuModel = new MenuModel();
+    private ArrayList<String> currentWeek = new ArrayList<>();
 
     public CreateDishMenu() {
         // Required empty public constructor
@@ -84,8 +88,22 @@ public class CreateDishMenu extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_create_dish_menu, container, false);
         initUI(view);
+        setCurrentWeekdays();
         wireEvents();
         return view;
+    }
+
+    private void setCurrentWeekdays() {
+        Calendar now = Calendar.getInstance();
+        SimpleDateFormat format = new SimpleDateFormat("MM/dd/yyyy");
+        int delta = now.get(GregorianCalendar.DAY_OF_WEEK) - (now.getFirstDayOfWeek() + 1);
+        now.add(Calendar.DAY_OF_MONTH, -delta);
+        for (int i = 0; i < 5; i++) {
+            currentWeek.add(format.format(now.getTime()));
+            now.add(Calendar.DAY_OF_MONTH, 1);
+        }
+
+
     }
 
     @Override
@@ -117,7 +135,8 @@ public class CreateDishMenu extends Fragment {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getActivity(), DishListActivity.class);
-                startActivityForResult(intent, 300, new Bundle());
+                intent.putExtra("DOW", currentWeek.get(0));
+                startActivityForResult(intent, 300);
                 mondayCounter++;
                 mondayBtn.setText("Monday " + numOptions + "/" + mondayCounter);
             }
@@ -126,6 +145,7 @@ public class CreateDishMenu extends Fragment {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getActivity(), DishListActivity.class);
+                intent.putExtra("DOW", currentWeek.get(1));
                 startActivityForResult(intent, 300);
                 tuesdayCounter++;
                 tuesdayBtn.setText("Tuesday " + numOptions + "/" + tuesdayCounter);
@@ -135,6 +155,7 @@ public class CreateDishMenu extends Fragment {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getActivity(), DishListActivity.class);
+                intent.putExtra("DOW", currentWeek.get(2));
                 startActivityForResult(intent, 300);
                 wednesdayCounter++;
                 tuesdayBtn.setText("Wednesday " + numOptions + "/" + wednesdayCounter);
@@ -144,6 +165,7 @@ public class CreateDishMenu extends Fragment {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getActivity(), DishListActivity.class);
+                intent.putExtra("DOW", currentWeek.get(3));
                 startActivityForResult(intent, 300);
                 thursdayCounter++;
                 thursdayBtn.setText("Thursday " + numOptions + "/" + thursdayCounter);
@@ -153,6 +175,7 @@ public class CreateDishMenu extends Fragment {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getActivity(), DishListActivity.class);
+                intent.putExtra("DOW", currentWeek.get(4));
                 startActivityForResult(intent, 300);
                 fridayCounter++;
                 fridayBtn.setText("Friday " + numOptions + "/" + fridayCounter);
