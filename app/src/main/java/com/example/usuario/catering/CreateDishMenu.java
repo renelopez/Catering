@@ -15,11 +15,18 @@ import android.widget.TextView;
 import com.example.usuario.catering.interfaces.OnFragmentInteractionListener;
 import com.example.usuario.catering.models.DishModel;
 import com.example.usuario.catering.models.MenuModel;
+import com.example.usuario.catering.net.NetServices;
+import com.example.usuario.catering.net.OnBackgroundTaskCallback;
+import com.example.usuario.catering.net.VisibleAnimation;
+
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.List;
 
 
 /**
@@ -50,6 +57,7 @@ public class CreateDishMenu extends Fragment {
     private int numOptions = 0, mondayCounter = 0, tuesdayCounter = 0, wednesdayCounter = 0, thursdayCounter = 0, fridayCounter = 0;
     private MenuModel menuModel = new MenuModel();
     private ArrayList<String> currentWeek = new ArrayList<>();
+    private Button setMenuBtn;
 
     public CreateDishMenu() {
         // Required empty public constructor
@@ -181,6 +189,26 @@ public class CreateDishMenu extends Fragment {
                 fridayBtn.setText("Friday " + numOptions + "/" + fridayCounter);
             }
         });
+
+        setMenuBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                menuModel.setDishes(dishList);
+                List<NameValuePair> listBody = new ArrayList<NameValuePair>(1);
+                listBody.add(new BasicNameValuePair("menuDTO", menuModel.toString()));
+                new NetServices(new OnBackgroundTaskCallback() {
+                    @Override
+                    public void onTaskCompleted(String response) {
+
+                    }
+
+                    @Override
+                    public void onTaskError(String error) {
+
+                    }
+                }, new VisibleAnimation(view.findViewById(R.id.dishes_progress_bar)), "/menu").execute(NetServices.WS_CALL_POST);
+            }
+        });
     }
 
     private void initUI(View view) {
@@ -191,6 +219,7 @@ public class CreateDishMenu extends Fragment {
         thursdayBtn = (Button) view.findViewById(R.id.thursday_button);
         fridayBtn = (Button) view.findViewById(R.id.friday_button);
         numOptionsText = (TextView) view.findViewById(R.id.num_options_text);
+        setMenuBtn = (Button) view.findViewById(R.id.set_menu_button);
     }
 
     // TODO: Rename method, update argument and hook method into UI event
